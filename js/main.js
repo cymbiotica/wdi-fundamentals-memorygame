@@ -44,34 +44,57 @@ function shuffle() {
 }
 
 //put the deck onto the page 
-function renderDeck() {
+// function renderDeck() {
 
-    //create grid to hold cardss
-    var cardGrid = document.createElement('div');
-    cardGrid.id = 'card-grid';
-    document.getElementById('game-board').appendChild(cardGrid);
+//     //create grid to hold cardss
+//     var cardGrid = document.createElement('div');
+//     cardGrid.id = 'card-grid';
+//     document.getElementById('game-board').appendChild(cardGrid);
 
 
-    for (var i = 0; i < deck.length; i++) { 
-        //create a card
-        var card = document.createElement('div');
-        card.className = 'card-' + i;
-        var front = document.createElement('div');
-        front.className = 'front';
-        var back = document.createElement('div');
-        back.className = 'back';
+//     for (var i = 0; i < deck.length; i++) { 
+//         //create a card
+//         var card = document.createElement('div');
+//         card.className = 'card-' + i;
+//         var front = document.createElement('div');
+//         front.className = 'front';
+//         var back = document.createElement('div');
+//         back.className = 'back';
 
-        //add listener to flip card
+//         //add listener to flip card
+//         card.addEventListener('click', flipCard);
+
+//         //add card to card-grid div
+//         document.getElementById('card-grid').appendChild(card);
+//     }
+//     for (var j = 0; j < cardGrid.length; j++) {
+//         document.getElementsByClassName('card-grid')[j].getElementsByClassName('card-' + j).appendChild('front');
+//     }
+// }
+function renderDeck()
+{
+	for(var i = 0; i < deck.length; i++)
+	{
+		var card = document.createElement("div");
+		var value = document.createElement("div");
+        var suit = document.createElement("div");
+        
+		card.className = "card-back";
+		value.className = "value-hidden";
+		suit.className = "suit " + deck[i].Suit;
+
+        value.innerHTML = deck[i].Value;
+        
+		card.appendChild(value);
+        card.appendChild(suit);
         card.addEventListener('click', flipCard);
 
-        //add card to card-grid div
-        document.getElementById('card-grid').appendChild(card);
-    }
-    for (var j = 0; j < cardGrid.length; j++) {
-        document.getElementsByClassName('card-grid')[j].getElementsByClassName('card-' + j).appendChild('front');
-    }
+        //value.addEventListener('click', function () { this.classList.toggle('value')});
+        //value.addEventListener('mouseDown', function () { this.setAttribute('class', 'value'); });
+        //suit.addEventListener('mouseUp', function (){ this.setAttribute('class', 'suit ' + deck[i].suit); });
+		document.getElementById("game-board").appendChild(card);
+	}
 }
-
 // needs to be update. check to see if the two cards are a match
 var checkForMatch = function () {
 
@@ -87,8 +110,12 @@ var checkForMatch = function () {
 // once a card is clicked, flip over to the face value of the card
 var flipCard = function () {
     //this.setAttribute('src', '');
+    this.setAttribute('class', 'card');
+    document.getElementsByClassName('value-hidden')[0].setAttribute('class','value');
     checkForMatch();
 };
+
+var cardFocus = function () { this.setAttribute('src', 'value'); };
 
 // generate the playing area on the page
 var createBoard = function () {
@@ -98,4 +125,5 @@ var createBoard = function () {
 
 };
 // add listener to the shuffle button which will then call createBoard()
-document.getElementsByTagName('button')[0].addEventListener('click', createBoard);
+document.getElementById('deal').addEventListener('click', createBoard);
+document.getElementById('shuffle').addEventListener('click', shuffle);
