@@ -21,6 +21,8 @@ function getDeck() {
     return deck;
 }
 
+
+//not being used
 function deal() {
     // remove top card from deck
     var card = deck[deck.length - 1];
@@ -72,11 +74,11 @@ function renderDeck() {
 var checkForMatch = function () {
 
     if (cardsInPlay.length === 2) {
-        if (cardsInPlay[0].value === cardsInPlay[1].value) {
-            alert("You found a match");
+        if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
+            console.log("You found a match");
             resetCard(cardsInPlay[0], cardsInPlay[1]);
         } else {
-            alert("Sorry, try again.");
+            console.log("Sorry, try again.");
             resetCard(cardsInPlay[0], cardsInPlay[1]);
         }
     }
@@ -86,7 +88,7 @@ var checkForMatch = function () {
 var flipCard = function () {
     this.setAttribute('class', 'card');
     this.firstChild.setAttribute('class', 'value');
-    //console.log(cardsInPlay);
+    //console.log(this.innerText);
     var cardId = this.getAttribute('data-id');
     cardsInPlay.push(this);
     checkForMatch();
@@ -114,6 +116,26 @@ var createBoard = function () {
     renderDeck();
 
 };
+
+var resetGame = function () {
+    var cardsInBoard = document.getElementById('game-board');
+    
+    var length = document.getElementsByClassName('card').length;
+    var card = document.getElementsByClassName('card');
+    var value = document.getElementsByClassName('value');
+
+   cardsInBoard = '';
+    // for (var i = 0; i < length; i++) {
+    //     card[i].setAttribute('class', 'card-back');
+    //     value[i].setAttribute('class', 'value-hidden');
+    //     cardsInBoard.removeChild(cardsInBoard.childNodes[i]);
+    // }
+
+    renderDeck();
+    cardsInPlay = [];
+    //createBoard();
+
+};
 // add listener to the shuffle button which will then call createBoard()
 document.getElementById('deal').addEventListener('click', createBoard);
-document.getElementById('shuffle').addEventListener('click', shuffle);
+document.getElementById('reset').addEventListener('click', resetGame);
