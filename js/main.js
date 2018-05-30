@@ -18,7 +18,6 @@ function getDeck() {
             deck.push(card);
         }
     }
-
     return deck;
 }
 
@@ -45,10 +44,13 @@ function shuffle() {
 
 function renderDeck() {
     for (var i = 0; i < deck.length; i++) {
+
+        // create divs for each part of the card
         var card = document.createElement("div");
         var value = document.createElement("div");
         var suit = document.createElement("div");
 
+        // set the css classes for each part of card
         card.className = "card-back";
         value.className = "value-hidden";
         suit.className = "suit " + deck[i].Suit;
@@ -59,31 +61,50 @@ function renderDeck() {
         card.appendChild(suit);
         card.addEventListener('click', flipCard);
 
+        // add cards to the game-board
         document.getElementById("game-board").appendChild(card);
+
+        // change the value class to one that is not hidden once clicked
+        value.addEventListener('click', cardFocus);
     }
 }
 // needs to be update. check to see if the two cards are a match
 var checkForMatch = function () {
 
     if (cardsInPlay.length === 2) {
-        if (cardsInPlay[0] === cardsInPlay[1]) {
+        if (cardsInPlay[0].value === cardsInPlay[1].value) {
             alert("You found a match");
+            resetCard(cardsInPlay[0], cardsInPlay[1]);
         } else {
             alert("Sorry, try again.");
+            resetCard(cardsInPlay[0], cardsInPlay[1]);
         }
     }
 };
 
 // once a card is clicked, flip over to the face value of the card
 var flipCard = function () {
-    //this.setAttribute('src', '');
     this.setAttribute('class', 'card');
-    document.getElementsByClassName('value-hidden')[0].setAttribute('class', 'value');
+    this.firstChild.setAttribute('class', 'value');
+    //console.log(cardsInPlay);
+    var cardId = this.getAttribute('data-id');
+    cardsInPlay.push(this);
     checkForMatch();
 };
 
+var resetCard = function (card1, card2) {
+    // reset the card to show the back and hide the value again
+    card1.setAttribute('class', 'card-back');
+    card1.firstChild.setAttribute('class', 'value-hidden');
+    card2.setAttribute('class', 'card-back');
+    card2.firstChild.setAttribute('class', 'value-hidden');
+
+    // reset cardsin play to go on
+    cardsInPlay = [];
+};
+
 var cardFocus = function () {
-    this.setAttribute('src', 'value');
+    this.setAttribute('class', 'value');
 };
 
 // generate the playing area on the page
