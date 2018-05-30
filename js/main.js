@@ -76,7 +76,7 @@ var checkForMatch = function () {
     if (cardsInPlay.length === 2) {
         if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
             console.log("You found a match");
-            resetCard(cardsInPlay[0], cardsInPlay[1]);
+            //resetCard(cardsInPlay[0], cardsInPlay[1]);
         } else {
             console.log("Sorry, try again.");
             resetCard(cardsInPlay[0], cardsInPlay[1]);
@@ -123,18 +123,21 @@ var resetGame = function () {
     var length = document.getElementsByClassName('card').length;
     var card = document.getElementsByClassName('card');
     var value = document.getElementsByClassName('value');
+    console.log(cardsInBoard);
+   cardsInBoard.innerHTML = '';
+    //cardsInBoard.outerHTML = '<div id="game-board" class="clearfix"></div>';
+   console.log(cardsInBoard);
 
-   cardsInBoard = '';
     // for (var i = 0; i < length; i++) {
     //     card[i].setAttribute('class', 'card-back');
     //     value[i].setAttribute('class', 'value-hidden');
     //     cardsInBoard.removeChild(cardsInBoard.childNodes[i]);
     // }
-
-    renderDeck();
+    // console.log(cardsInBoard);
+    //renderDeck();
     cardsInPlay = [];
-    //createBoard();
-
+    deck = [];
+    createBoard();
 };
 // add listener to the shuffle button which will then call createBoard()
 document.getElementById('deal').addEventListener('click', createBoard);
