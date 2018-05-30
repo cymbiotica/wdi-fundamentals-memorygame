@@ -32,9 +32,11 @@
     font-size: 15pt;
     font-family: sans-serif;
 }
+
 .value-hidden {
     visibility: hidden;
 }
+
 .card .suit {
     background-image: url('../images/suits.png');
     height: 100px;
