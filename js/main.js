@@ -45,11 +45,30 @@ function shuffle() {
 
 //put the deck onto the page 
 function renderDeck() {
-    for (var i = 0; i < deck.length; i++) {
-        var card = document.createElement("div");
-        card.className = "card";
+
+    //create grid to hold cardss
+    var cardGrid = document.createElement('div');
+    cardGrid.id = 'card-grid';
+    document.getElementById('game-board').appendChild(cardGrid);
+
+
+    for (var i = 0; i < deck.length; i++) { 
+        //create a card
+        var card = document.createElement('div');
+        card.className = 'card-' + i;
+        var front = document.createElement('div');
+        front.className = 'front';
+        var back = document.createElement('div');
+        back.className = 'back';
+
+        //add listener to flip card
         card.addEventListener('click', flipCard);
-        document.getElementById("game-board").appendChild(card);
+
+        //add card to card-grid div
+        document.getElementById('card-grid').appendChild(card);
+    }
+    for (var j = 0; j < cardGrid.length; j++) {
+        document.getElementsByClassName('card-grid')[j].getElementsByClassName('card-' + j).appendChild('front');
     }
 }
 
