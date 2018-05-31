@@ -54,8 +54,8 @@ function renderDeck() {
         let suit = document.createElement("div");
 
         // set the css classes for each part of card
-        card.className = "card-back";
-        value.className = "value-hidden";
+        card.classList.add("card", "back");
+        value.classList.add("value", "hidden");
         suit.className = "suit " + deck[i].Suit;
 
         value.innerHTML = deck[i].Value;
@@ -107,13 +107,17 @@ let flipCard = function () {
 
 let resetCard = function (card1, card2) {
     // reset the card to show the back and hide the value again
-    card1.setAttribute('class', 'card-back');
-    card1.firstChild.setAttribute('class', 'value-hidden');
-    card2.setAttribute('class', 'card-back');
+    card1.classList.replace('card', 'card back');
+    card1.firstChild.setAttribute('class', 'value hidden');
+
+    card2.classList.replace('card', 'card back');
     card2.firstChild.setAttribute('class', 'value-hidden');
 
     // reset cardsin play to go on
     cardsInPlay = [];
+
+    //card1.setAttribute('class', 'card-back');
+    //card2.setAttribute('class', 'card-back');
 };
 
 let cardFocus = function () {

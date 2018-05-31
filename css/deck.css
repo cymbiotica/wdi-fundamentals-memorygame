@@ -7,11 +7,7 @@
     float: left;
 }
 
-.card-hidden {
-    visibility: hidden;
-}
-
-.card-back {
+.card .back {
     background-image: url('../images/back.png');
     background-size: cover;
     padding: 3px 3px 3px 3px;
@@ -24,10 +20,6 @@
 .card .value {
     font-size: 15pt;
     font-family: sans-serif;
-}
-
-.value-hidden {
-    visibility: hidden;
 }
 
 .card .suit {

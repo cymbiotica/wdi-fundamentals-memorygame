@@ -103,4 +103,8 @@
     .name {
         color: #F15B31;
         font-weight: 700;
-   }
+    }
+
+    .hidden {
+        visibility: hidden;
+    }
