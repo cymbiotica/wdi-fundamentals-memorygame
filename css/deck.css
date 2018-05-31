@@ -7,7 +7,7 @@
     float: left;
 }
 
-.card .back {
+.card.back {
     background-image: url('../images/back.png');
     background-size: cover;
     padding: 3px 3px 3px 3px;
@@ -17,7 +17,12 @@
     float: left;
 }
 
-.card .value {
+.card.disabled {
+    pointer-events: none;
+    opacity: 0.9;
+}
+
+.card.value {
     font-size: 15pt;
     font-family: sans-serif;
 }

@@ -242,16 +242,3 @@ for (let i = 0; i < cards.length; i++){
     card.addEventListener("click", cardOpen);
     card.addEventListener("click",congratulations);
 };
-© 2018 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-API
-Training
-Shop
-Blog
-About
-Press h to open a hovercard with more details.

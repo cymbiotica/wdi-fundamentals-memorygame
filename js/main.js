@@ -1,9 +1,8 @@
 //deck generation and display functions
 let deck = [];
+let cardsInPlay = [];
 let suits = ["spades", "diamonds", "clubs", "hearts"];
 let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-let cardsInPlay = [];
-let cardsClicked = 0;
 
 //generate a deck of 52 playing cards with suits and ranks. 
 //this deck will be in a non-random order
@@ -21,7 +20,6 @@ function getDeck() {
     }
     return deck;
 }
-
 
 //not being used
 function deal() {
@@ -71,39 +69,29 @@ function renderDeck() {
         value.addEventListener('click', cardFocus);
     }
 }
-// needs to be update. check to see if the two cards are a match
-let checkForMatch = function () {
-
-        if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
-            console.log("You found a match");
-            //resetCard(cardsInPlay[0], cardsInPlay[1]);
-            cardsInPlay = [];
-            cardsClicked = 0;
-        } else {
-            console.log("Sorry, try again.");
-            cardsClicked = 0;
-            resetCard(cardsInPlay[0], cardsInPlay[1]);
-        }
-};
 
 // once a card is clicked, flip over to the face value of the card
 let flipCard = function () {
-    this.setAttribute('class', 'card');
-    this.firstChild.setAttribute('class', 'value');
-   // let cardId = this.getAttribute('data-id');
     cardsInPlay.push(this);
+    let length = cardsInPlay.length;
 
-    cardsClicked++;
-    console.log(cardsClicked);
-    
-    if (cardsClicked === 2  && cardsInPlay.length === 2){
-        checkForMatch();
-    } else {
-        console.log('reached else on flipcard.');
-        return;
+    if (length === 2) {
+        if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
+            match();
+        } else {
+            unmatch();
+        }
     }
-    
 };
+
+var match = function () {
+    cardsInPlay[0].classlist.add('card', 'disabled');
+    cardsInPlay[0].classlist.remove('back');
+    cardsInPlay[1].classlist.add('card', 'disabled');
+    cardsInPlay[0].classlist.remove('back');
+    cardsInPlay = [];
+};
+
 
 let resetCard = function (card1, card2) {
     // reset the card to show the back and hide the value again
@@ -115,9 +103,6 @@ let resetCard = function (card1, card2) {
 
     // reset cardsin play to go on
     cardsInPlay = [];
-
-    //card1.setAttribute('class', 'card-back');
-    //card2.setAttribute('class', 'card-back');
 };
 
 let cardFocus = function () {
@@ -134,10 +119,6 @@ let createBoard = function () {
 
 let resetGame = function () {
     let cardsInBoard = document.getElementById('game-board');
-
-    let length = document.getElementsByClassName('card').length;
-    let card = document.getElementsByClassName('card');
-    let value = document.getElementsByClassName('value');
 
     cardsInBoard.innerHTML = '';
     cardsInPlay = [];
