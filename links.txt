@@ -1,1 +1,5 @@
 http://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
+https://scotch.io/tutorials/how-to-build-a-memory-matching-game-in-javascript#2-matching-cards
+https://css-tricks.com/when-using-important-is-the-right-choice/
+https://scotch.io/tutorials/getting-started-with-live-coding-in-visual-studio-code-with-live-share?utm_source=spotim&utm_medium=spotim_recirculation&spotim_referrer=recirculation&spot_im_comment_id=sp_D7GE1sbz_37610_c_skGAG0
+https://www.cyberciti.biz/tips/howto-linux-unix-bash-shell-setup-prompt.html

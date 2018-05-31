@@ -3,6 +3,7 @@ var deck = [];
 var suits = ["spades", "diamonds", "clubs", "hearts"];
 var values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 var cardsInPlay = [];
+var cardsClicked = 0;
 
 //generate a deck of 52 playing cards with suits and ranks. 
 //this deck will be in a non-random order
@@ -73,25 +74,35 @@ function renderDeck() {
 // needs to be update. check to see if the two cards are a match
 var checkForMatch = function () {
 
-    if (cardsInPlay.length === 2) {
         if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
             console.log("You found a match");
             //resetCard(cardsInPlay[0], cardsInPlay[1]);
+            cardsInPlay = [];
+            cardsClicked = 0;
         } else {
             console.log("Sorry, try again.");
+            cardsClicked = 0;
             resetCard(cardsInPlay[0], cardsInPlay[1]);
         }
-    }
 };
 
 // once a card is clicked, flip over to the face value of the card
 var flipCard = function () {
     this.setAttribute('class', 'card');
     this.firstChild.setAttribute('class', 'value');
-    //console.log(this.innerText);
-    var cardId = this.getAttribute('data-id');
+   // var cardId = this.getAttribute('data-id');
     cardsInPlay.push(this);
-    checkForMatch();
+
+    cardsClicked++;
+    console.log(cardsClicked);
+    
+    if (cardsClicked === 2  && cardsInPlay.length === 2){
+        checkForMatch();
+    } else {
+        console.log('reached else on flipcard.');
+        return;
+    }
+    
 };
 
 var resetCard = function (card1, card2) {
@@ -119,22 +130,12 @@ var createBoard = function () {
 
 var resetGame = function () {
     var cardsInBoard = document.getElementById('game-board');
-    
+
     var length = document.getElementsByClassName('card').length;
     var card = document.getElementsByClassName('card');
     var value = document.getElementsByClassName('value');
-    console.log(cardsInBoard);
-   cardsInBoard.innerHTML = '';
-    //cardsInBoard.outerHTML = '<div id="game-board" class="clearfix"></div>';
-   console.log(cardsInBoard);
 
-    // for (var i = 0; i < length; i++) {
-    //     card[i].setAttribute('class', 'card-back');
-    //     value[i].setAttribute('class', 'value-hidden');
-    //     cardsInBoard.removeChild(cardsInBoard.childNodes[i]);
-    // }
-    // console.log(cardsInBoard);
-    //renderDeck();
+    cardsInBoard.innerHTML = '';
     cardsInPlay = [];
     deck = [];
     createBoard();
