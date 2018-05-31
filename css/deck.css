@@ -1,12 +1,5 @@
 .card {
-    /*background-image: url('../images/back.png');*/
     background-size: cover;
-    /*border: solid 1px #aaa;
-    border-radius: 9px;
-    width: 95px;
-    height: 150px;
-    float: left;
-    background-color: white;*/
     padding: 3px 3px 3px 3px;
     margin: 3px 3px;
     width: 80px;

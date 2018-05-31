@@ -1,18 +1,18 @@
 //deck generation and display functions
-var deck = [];
-var suits = ["spades", "diamonds", "clubs", "hearts"];
-var values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
-var cardsInPlay = [];
-var cardsClicked = 0;
+let deck = [];
+let suits = ["spades", "diamonds", "clubs", "hearts"];
+let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let cardsInPlay = [];
+let cardsClicked = 0;
 
 //generate a deck of 52 playing cards with suits and ranks. 
 //this deck will be in a non-random order
 function getDeck() {
-    //var deck = [];
+    //let deck = [];
 
-    for (var i = 0; i < suits.length; i++) {
-        for (var x = 0; x < values.length; x++) {
-            var card = {
+    for (let i = 0; i < suits.length; i++) {
+        for (let x = 0; x < values.length; x++) {
+            let card = {
                 Value: values[x],
                 Suit: suits[i]
             };
@@ -26,7 +26,7 @@ function getDeck() {
 //not being used
 function deal() {
     // remove top card from deck
-    var card = deck[deck.length - 1];
+    let card = deck[deck.length - 1];
     deck.splice(deck.length - 1, 1);
     return card;
 }
@@ -35,10 +35,10 @@ function deal() {
 function shuffle() {
     // for 1000 turns
     // switch the values of two random cards
-    for (var i = 0; i < 1000; i++) {
-        var location1 = Math.floor((Math.random() * deck.length));
-        var location2 = Math.floor((Math.random() * deck.length));
-        var tmp = deck[location1];
+    for (let i = 0; i < 1000; i++) {
+        let location1 = Math.floor((Math.random() * deck.length));
+        let location2 = Math.floor((Math.random() * deck.length));
+        let tmp = deck[location1];
 
         deck[location1] = deck[location2];
         deck[location2] = tmp;
@@ -46,12 +46,12 @@ function shuffle() {
 }
 
 function renderDeck() {
-    for (var i = 0; i < deck.length; i++) {
+    for (let i = 0; i < deck.length; i++) {
 
         // create divs for each part of the card
-        var card = document.createElement("div");
-        var value = document.createElement("div");
-        var suit = document.createElement("div");
+        let card = document.createElement("div");
+        let value = document.createElement("div");
+        let suit = document.createElement("div");
 
         // set the css classes for each part of card
         card.className = "card-back";
@@ -72,7 +72,7 @@ function renderDeck() {
     }
 }
 // needs to be update. check to see if the two cards are a match
-var checkForMatch = function () {
+let checkForMatch = function () {
 
         if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
             console.log("You found a match");
@@ -87,10 +87,10 @@ var checkForMatch = function () {
 };
 
 // once a card is clicked, flip over to the face value of the card
-var flipCard = function () {
+let flipCard = function () {
     this.setAttribute('class', 'card');
     this.firstChild.setAttribute('class', 'value');
-   // var cardId = this.getAttribute('data-id');
+   // let cardId = this.getAttribute('data-id');
     cardsInPlay.push(this);
 
     cardsClicked++;
@@ -105,7 +105,7 @@ var flipCard = function () {
     
 };
 
-var resetCard = function (card1, card2) {
+let resetCard = function (card1, card2) {
     // reset the card to show the back and hide the value again
     card1.setAttribute('class', 'card-back');
     card1.firstChild.setAttribute('class', 'value-hidden');
@@ -116,24 +116,24 @@ var resetCard = function (card1, card2) {
     cardsInPlay = [];
 };
 
-var cardFocus = function () {
+let cardFocus = function () {
     this.setAttribute('class', 'value');
 };
 
 // generate the playing area on the page
-var createBoard = function () {
+let createBoard = function () {
     getDeck();
     shuffle();
     renderDeck();
 
 };
 
-var resetGame = function () {
-    var cardsInBoard = document.getElementById('game-board');
+let resetGame = function () {
+    let cardsInBoard = document.getElementById('game-board');
 
-    var length = document.getElementsByClassName('card').length;
-    var card = document.getElementsByClassName('card');
-    var value = document.getElementsByClassName('value');
+    let length = document.getElementsByClassName('card').length;
+    let card = document.getElementsByClassName('card');
+    let value = document.getElementsByClassName('value');
 
     cardsInBoard.innerHTML = '';
     cardsInPlay = [];
