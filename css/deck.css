@@ -1,20 +1,23 @@
 .card {
     background-size: cover;
-    padding: 3px 3px 3px 3px;
-    margin: 3px 3px;
-    width: 80px;
-    height: 132px;
+    /* padding: 2px;
+    margin: 5px;
+    width: 85px;
+    height: 135px; */
     float: left;
 }
 
 .card.back {
     background-image: url('../images/back.png');
     background-size: cover;
-    padding: 3px 3px 3px 3px;
-    margin: 3px 3px;
-    width: 80px;
-    height: 132px;
+    /* padding: 2px;
+    margin: 5px;
+    width: 85px;
+    height: 135px; */
     float: left;
+}
+.card.noMatch {
+    border: .5px solid red;
 }
 
 .card.disabled {

@@ -1,8 +1,10 @@
 //deck generation and display functions
 let deck = [];
 let cardsInPlay = [];
-let suits = ["spades", "diamonds", "clubs", "hearts"];
-let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+let matchesFound = 0;
+const totalMatches = 26;
+const suits = ["spades", "diamonds", "clubs", "hearts"];
+const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 
 //generate a deck of 52 playing cards with suits and ranks. 
 //this deck will be in a non-random order
@@ -54,7 +56,10 @@ function renderDeck() {
         // set the css classes for each part of card
         card.classList.add("card", "back");
         value.classList.add("value", "hidden");
+
         suit.className = "suit " + deck[i].Suit;
+        suit.classList.add('hidden');
+
 
         value.innerHTML = deck[i].Value;
 
@@ -73,25 +78,58 @@ function renderDeck() {
 // once a card is clicked, flip over to the face value of the card
 let flipCard = function () {
     cardsInPlay.push(this);
+
+    // these suck and need to be reworked
     let length = cardsInPlay.length;
+    let value = this.firstChild;
+    let suit = this.children[1];
+
+    value.classList.toggle('hidden');
+    suit.classList.toggle('hidden');
+    this.classList.remove('back');
+    this.classList.add('card', 'disabled');
 
     if (length === 2) {
         if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
             match();
         } else {
-            unmatch();
+            cardsInPlay[0].classList.toggle('noMatch');
+            cardsInPlay[1].classList.toggle('noMatch');
+            setTimeout(unmatch, 1000);
         }
     }
 };
 
 var match = function () {
-    cardsInPlay[0].classlist.add('card', 'disabled');
-    cardsInPlay[0].classlist.remove('back');
-    cardsInPlay[1].classlist.add('card', 'disabled');
-    cardsInPlay[0].classlist.remove('back');
     cardsInPlay = [];
+    matchesFound++;
+    console.log('matches found : ' + matchesFound);
+    if (matchesFound === totalMatches) {
+        console.log("You found them all.");
+    } else {
+        console.log("You found a match");
+    }
+    
 };
 
+let unmatch = function () {
+    cardsInPlay[0].classList.remove('disabled');
+    cardsInPlay[0].classList.add('back');
+    cardsInPlay[0].firstChild.classList.add('hidden');
+    cardsInPlay[0].lastElementChild.classList.add('hidden');
+
+    cardsInPlay[1].classList.remove('disabled');
+    cardsInPlay[1].classList.add('back');
+    cardsInPlay[1].firstChild.classList.add('hidden');
+    cardsInPlay[1].lastElementChild.classList.add('hidden');
+
+    ardsInPlay[0].classList.toggle('noMatch');
+    cardsInPlay[1].classList.toggle('noMatch');
+
+    cardsInPlay = [];
+    
+    console.log("Sorry not a match");
+};
 
 let resetCard = function (card1, card2) {
     // reset the card to show the back and hide the value again
@@ -123,6 +161,7 @@ let resetGame = function () {
     cardsInBoard.innerHTML = '';
     cardsInPlay = [];
     deck = [];
+    matchesFound = 0;
     createBoard();
 };
 // add listener to the shuffle button which will then call createBoard()
