@@ -6,6 +6,8 @@ const totalMatches = 26;
 const suits = ["spades", "diamonds", "clubs", "hearts"];
 const values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 
+let locked = false
+
 //generate a deck of 52 playing cards with suits and ranks. 
 //this deck will be in a non-random order
 function getDeck() {
@@ -77,6 +79,11 @@ function renderDeck() {
 
 // once a card is clicked, flip over to the face value of the card
 let flipCard = function () {
+
+    if (locked) {
+        return false
+    }
+
     cardsInPlay.push(this);
 
     // these suck and need to be reworked
@@ -95,6 +102,7 @@ let flipCard = function () {
         } else {
             cardsInPlay[0].classList.toggle('noMatch');
             cardsInPlay[1].classList.toggle('noMatch');
+            locked = true
             setTimeout(unmatch, 1000);
         }
     }
@@ -113,6 +121,7 @@ var match = function () {
 };
 
 let unmatch = function () {
+    locked = false
     cardsInPlay[0].classList.remove('disabled');
     cardsInPlay[0].classList.add('back');
     cardsInPlay[0].firstChild.classList.add('hidden');
@@ -123,7 +132,7 @@ let unmatch = function () {
     cardsInPlay[1].firstChild.classList.add('hidden');
     cardsInPlay[1].lastElementChild.classList.add('hidden');
 
-    ardsInPlay[0].classList.toggle('noMatch');
+    cardsInPlay[0].classList.toggle('noMatch');
     cardsInPlay[1].classList.toggle('noMatch');
 
     cardsInPlay = [];
