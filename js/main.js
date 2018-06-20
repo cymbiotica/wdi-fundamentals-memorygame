@@ -49,46 +49,49 @@ function renderDeck() {
     for (let i = 0; i < deck.length; i++) {
 
         // create divs for each part of the card
-        let card = document.createElement("div");
-        let value = document.createElement("div");
-        let suit = document.createElement("div");
+        let card = $("<div class='card back'></div>")
+        let value = $("<div class='card-value hidden'></div>")
+        let suit = $("<div class='hidden'></div>")
 
         // set the css classes for each part of card
-        card.classList.add("card", "back");
-        value.classList.add("value", "hidden");
+        //card.addClass("card back")
+        //value.addClass("value hidden")
 
-        suit.className = "suit " + deck[i].Suit;
-        suit.classList.add('hidden');
+        suit.addClass("suit " + deck[i].Suit)
 
 
-        value.innerHTML = deck[i].Value;
+        value.html(deck[i].Value)
 
-        card.appendChild(value);
-        card.appendChild(suit);
-        card.addEventListener('click', flipCard);
+        card.append(value);
+        card.append(suit);
+
+        card.on('click', flipCard)
 
         // add cards to the game-board
-        document.getElementById("game-board").appendChild(card);
 
+        $("#game-board").append(card)
         // change the value class to one that is not hidden once clicked
-        value.addEventListener('click', cardFocus);
+        
+        value.on('click', cardFocus)
     }
 }
 
 // once a card is clicked, flip over to the face value of the card
 let flipCard = function () {
     cardsInPlay.push(this);
-
     // these suck and need to be reworked
     let length = cardsInPlay.length;
-    let value = this.firstChild;
-    let suit = this.children[1];
+    let valueEl = $("#game-board").children()[0].children[0]
+    let valEl = $("#game-board").find("div.card-value")
+    let suitEl = $("#game-board").children()[0].children[1]
+    let suitEle = $("hidden suit diamonds")
 
-    value.classList.toggle('hidden');
-    suit.classList.toggle('hidden');
-    this.classList.remove('back');
-    this.classList.add('card', 'disabled');
-
+    debugger
+    valEl.removeClass('hidden');
+    suitEle.toggleClass('hidden');
+    $(this).removeClass('back');
+    $(this).addClass('card disabled');
+    
     if (length === 2) {
         if (cardsInPlay[0].innerText === cardsInPlay[1].innerText) {
             match();
